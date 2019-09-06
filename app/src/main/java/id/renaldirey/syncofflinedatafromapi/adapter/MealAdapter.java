@@ -104,11 +104,9 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
         @OnClick(R.id.btn_add)
         void onAdd() {
             if(!isAvailable()) {
-//                Toast.makeText(context, "Tambahin nih", Toast.LENGTH_SHORT).show();
                 DatabaseConfig.insertData(MyDatabase.getInstance(context), new MealEntity(item));
                 notifyDataSetChanged();
             } else {
-//                Toast.makeText(context, "Hapus nih", Toast.LENGTH_SHORT).show();
                 DatabaseConfig.deleteMealFrom(MyDatabase.getInstance(context),
                         DatabaseConfig.getDataCurriculumWhere(MyDatabase.getInstance(context), item));
                 notifyDataSetChanged();
