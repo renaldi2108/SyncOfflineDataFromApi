@@ -4,21 +4,22 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
-import android.arch.persistence.room.TypeConverters;
 
-import id.renaldirey.syncofflinedatafromapi.database.converter.MealConverter;
-import id.renaldirey.syncofflinedatafromapi.database.entity.MealEntity;
+import java.util.List;
+
 import id.renaldirey.syncofflinedatafromapi.model.ListMeal;
 
 @Dao
 public interface MealDao {
-    @TypeConverters(MealConverter.class)
-    @Query("SELECT * FROM meals WHERE item = :item")
-    MealEntity getDataWhere(ListMeal item);
+    @Query("SELECT * FROM meals")
+    List<ListMeal> getData();
+
+    @Query("SELECT * FROM meals WHERE idMeal = :idMeal")
+    ListMeal getDataWhere(String idMeal);
 
     @Insert
-    void insertAll(MealEntity... data);
+    void insertAll(ListMeal... data);
 
     @Delete
-    void deleteMeal(MealEntity data);
+    void deleteMeal(ListMeal data);
 }

@@ -6,10 +6,10 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 import id.renaldirey.syncofflinedatafromapi.database.dao.MealDao;
-import id.renaldirey.syncofflinedatafromapi.database.entity.MealEntity;
+import id.renaldirey.syncofflinedatafromapi.model.ListMeal;
 import id.renaldirey.syncofflinedatafromapi.utils.Constant;
 
-@Database(entities = {MealEntity.class}, version = Constant.DATABASE_VERSION, exportSchema = false)
+@Database(entities = {ListMeal.class}, version = Constant.DATABASE_VERSION, exportSchema = false)
 public abstract class MyDatabase extends RoomDatabase {
     private static MyDatabase INSTANCE;
     public abstract MealDao mealDao();

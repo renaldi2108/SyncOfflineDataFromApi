@@ -1,12 +1,23 @@
 package id.renaldirey.syncofflinedatafromapi.model;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
+@Entity(tableName = "meals")
 public class ListMeal {
+    @NonNull
+    @PrimaryKey
+    @ColumnInfo(name = "idMeal")
     @SerializedName("idMeal")
     String id;
+    @ColumnInfo(name = "strMeal")
     @SerializedName("strMeal")
     String name;
+    @ColumnInfo(name = "strMealThumb")
     @SerializedName("strMealThumb")
     String thumbnail;
 

@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -21,17 +20,23 @@ import butterknife.OnClick;
 import id.renaldirey.syncofflinedatafromapi.R;
 import id.renaldirey.syncofflinedatafromapi.database.DatabaseConfig;
 import id.renaldirey.syncofflinedatafromapi.database.MyDatabase;
-import id.renaldirey.syncofflinedatafromapi.database.entity.MealEntity;
+import id.renaldirey.syncofflinedatafromapi.listener.AddClickListener;
 import id.renaldirey.syncofflinedatafromapi.model.ListMeal;
 
 public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
 
-    Context context;
-    List<ListMeal> data;
+    private Context context;
+    private List<ListMeal> data;
+
+    private AddClickListener addClickListener;
 
     public MealAdapter(Context context) {
         this.context = context;
         this.data = new ArrayList<>();
+    }
+
+    public void setAddClickListener(AddClickListener addClickListener) {
+        this.addClickListener = addClickListener;
     }
 
     public void add(ListMeal item) {
@@ -98,19 +103,13 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
         }
 
         private boolean isAvailable() {
-            return DatabaseConfig.getDataCurriculumWhere(MyDatabase.getInstance(context), item) != null;
+            return DatabaseConfig.getDataCurriculumWhere(MyDatabase.getInstance(context), item.getId()) != null;
         }
 
         @OnClick(R.id.btn_add)
         void onAdd() {
-            if(!isAvailable()) {
-                DatabaseConfig.insertData(MyDatabase.getInstance(context), new MealEntity(item));
-                notifyDataSetChanged();
-            } else {
-                DatabaseConfig.deleteMealFrom(MyDatabase.getInstance(context),
-                        DatabaseConfig.getDataCurriculumWhere(MyDatabase.getInstance(context), item));
-                notifyDataSetChanged();
-            }
+            if(addClickListener!=null)
+                addClickListener.onAddClick(isAvailable(), getAdapterPosition());
         }
     }
 }

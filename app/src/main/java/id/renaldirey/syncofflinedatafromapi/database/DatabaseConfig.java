@@ -1,20 +1,24 @@
 package id.renaldirey.syncofflinedatafromapi.database;
 
-import id.renaldirey.syncofflinedatafromapi.database.entity.MealEntity;
+import java.util.List;
+
 import id.renaldirey.syncofflinedatafromapi.model.ListMeal;
 
 public class DatabaseConfig {
-    public static final String TAG = DatabaseConfig.class.getSimpleName();
 
-    public static void insertData(MyDatabase db, MealEntity data) {
+    public static void insertData(MyDatabase db, ListMeal data) {
         db.mealDao().insertAll(data);
     }
 
-    public static void deleteMealFrom(MyDatabase db, MealEntity data) {
+    public static void deleteMealFrom(MyDatabase db, ListMeal data) {
         db.mealDao().deleteMeal(data);
     }
 
-    public static MealEntity getDataCurriculumWhere(MyDatabase db, ListMeal data) {
-        return db.mealDao().getDataWhere(data);
+    public static ListMeal getDataCurriculumWhere(MyDatabase db, String idMeal) {
+        return db.mealDao().getDataWhere(idMeal);
+    }
+
+    public static List<ListMeal> getData(MyDatabase db) {
+        return db.mealDao().getData();
     }
 }
